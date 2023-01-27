@@ -1,0 +1,45 @@
+{% extends 'bootstrap/base.html' %}                                                                                      <!-- Diese Zeile erweitert die "base.html" von Bootstrap.-->
+
+{% block styles %}                                                                                                       <!-- Dieser Block definiert die Stylesheets, die in dieser HTML-Seite                                                                      -->
+  {{ super() }}                                                                                                          <!-- verwendet werden sollen.                                                                                                              -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">                         <!-- Es werden sowohl                                                                                                                      -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">                             <!-- die Stylesheets                                                                                                                       -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">                           <!-- on Bootstrap                                                                                                                          -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />  <!--als auch   -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">                                     <!-- eigene Stylesheets                                                                                                                     -->
+{% endblock %}                                                                                                          <!-- geladen.                                                                                                                               -->
+
+{% block title %}My Top 10 Movies{% endblock %}                                                                          <!-- Dieser Block definiert den Titel der HTML-Seite als "My Top 10 Movies".-->
+
+{% block content %}                                                                                                      <!-- Hier wird der Inhalt des HTML-Dokuments definiert, welcher später innerhalb des Blocks "content" eingesetzt wird.-->
+<div class="container">                                                                                                  <!-- Hier wird ein div-Container erstellt, welcher später für die optische Gestaltung der Seite verwendet wird.-->
+  <h1 class="heading">My Top 10 Movies</h1>                                                                              <!-- Hier wird ein Überschrift-Element erstellt, welches "My Top 10 Movies" als Text enthält und die CSS-Klasse "heading" besitzt.-->
+  <p class="description">These are my all time favourite movies.</p>                                                     <!-- Hier wird ein Absatz-Element erstellt, welches "These are my all time favourite movies." als Text enthält und die CSS-Klasse "description" besitzt.-->
+    {% for movie in movies %}                                                                                            <!-- Hier beginnt eine Schleife, welche durch alle Elemente der Liste "movies" wiederholt. Für jedes Element wird der darauf folgende Code ausgeführt.-->
+  <div class="card" >                                                                                                    <!-- Hier wird ein div-Element mit der Klasse "card" erstellt.-->
+    <div class="front" style="background-image: url('{{movie.img_url}}');">                                              <!-- Hier wird ein weiteres div-Element mit der Klasse "front" erstellt und das Hintergrundbild durch die URL in der Variable "movie.img_url" festgelegt.-->
+        <p class="large">{{ movie.ranking }}</p>                                                                         <!-- Hier wird ein p-Element mit der Klasse "large" erstellt und der Rang des Films aus der Variable "movie.ranking" eingefügt.-->
+    </div>                                                                                                               <!-- Hier wird das div-Element geschlossen.-->
+    <div class="back">                                                                                                   <!-- Hier wird ein weiteres div-Element mit der Klasse "back" erstellt.-->
+      <div>                                                                                                              <!-- Hier wird ein weiteres div-Element erstellt.-->
+    <div class="title">{{movie.title}} <span class="release_date">({{movie.year}})</span></div>                          <!-- Hier wird ein div-Element mit der Klasse "title" erstellt und der Titel des Films aus der Variable "movie.title" sowie das Erscheinungsjahr aus der Variable "movie.year" eingefügt.-->
+        <div class="rating">                                                                                             <!-- Hier wird ein div-Element mit der Klasse "rating" erstellt.-->
+            <label>{{movie.rating}}</label>                                                                              <!-- Hier wird ein label-Element erstellt und die Bewertung des Films aus der Variable "movie.rating" eingefügt.-->
+          <i class="fas fa-star star"></i>                                                                               <!-- Hier wird ein i-Element erstellt, welches das Font Awesome Icon für einen Stern darstellt und die Klasse "star" enthält.-->
+        </div>                                                                                                           <!-- Hier wird das div-Element geschlossen.-->
+          <p class="review">"{{movie.review}}"</p>                                                                       <!-- Hier wird ein p-Element erstellt, welches die Bewertung des Films enthält, die in Anführungszeichen gesetzt ist.-->
+        <p class="overview">{{movie.description}}</p>                                                                    <!-- Hier wird ein p-Element erstellt, welches eine kurze Zusammenfassung des Films enthält.-->
+
+        <a href="{{ url_for('rate_movie', id=movie.id) }}" class="button">Update</a>                                     <!-- Hier wird ein Link erstellt, der zur Seite zum Bewerten des Films führt und die ID des jeweiligen Films als Parameter enthält.-->
+        <a href="{{ url_for('delete_movie', id=movie.id) }}" class="button delete-button">Delete</a>                     <!-- Hier wird ein Link erstellt, der zur Seite zum Löschen des Films führt und die ID des jeweiligen Films als Parameter enthält.-->
+
+      </div>
+    </div>
+  </div>
+    {% endfor %}                                                                                                         <!-- Hier endet die Schleife. -->
+</div>
+<div class="container text-center add">                                                                                  <!-- Hier wird ein Link erstellt, der           -->
+<a href="{{ url_for('add_movie') }}" class="button">Add Movie</a>                                                        <!-- zur Seite zum Hinzufügen von Filmen führt. -->
+</div>
+
+{% endblock %}                                                                                                           <!-- Hier wird der block "content" beendet.-->

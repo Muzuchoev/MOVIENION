@@ -1,0 +1,18 @@
+{% extends 'bootstrap/base.html' %}                                                                                      <!-- Hiermit wird das Bootstrap-Layout auf die aktuelle HTML-Datei angewendet. -->
+{% import "bootstrap/wtf.html" as wtf %}                                                                                 <!-- Hiermit wird die wtf.html-Datei aus dem Bootstrap-Ordner importiert und als "wtf" bezeichnet.-->
+
+{% block styles %}                                                                                                       <!-- Beginn des Blocks für die Stil-Angaben.-->
+  {{ super() }}                                                                                                          <!-- Aufruf der Stil-Angaben der übergeordneten Vorlage.-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">                         <!-- Link zu einer Schriftart von Google Fonts.-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">                             <!-- Link zu einer weiteren Schriftart von Google Fonts.-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">                                      <!-- Link zur eigenen CSS-Datei.-->
+{% endblock %}                                                                                                           <!-- Ende des Blocks für die Stil-Angaben.-->
+
+{% block title %}Add Movie{% endblock %}                                                                                 <!-- Hiermit wird der Titel der Seite auf "Add Movie" festgelegt.-->
+
+{% block content %}                                                                                                      <!-- Beginn des Blocks für den Seiteninhalt.-->
+<div class="content">                                                                                                    <!-- Beginn eines neuen HTML-Containers mit der Klasse "content".-->
+    <h1 class="heading">Add a Movie</h1>                                                                                 <!-- Überschrift 1 mit der Klasse "heading".-->
+    {{ wtf.quick_form(form, novalidate=True) }}                                                                          <!-- Ausgabe des Formulars aus der importierten wtf.html-Datei mit der Option "novalidate=True".-->
+</div>                                                                                                                   <!-- Ende des HTML-Containers.-->
+{% endblock %}                                                                                                           <!-- Ende des Blocks für den Seiteninhalt.-->

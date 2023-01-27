@@ -1,0 +1,23 @@
+{% extends 'bootstrap/base.html' %}                                                                                      <!-- Hier wird angegeben, dass die aktuelle Seite die "base.html" von Bootstrap erweitert.-->
+{% import "bootstrap/wtf.html" as wtf %}                                                                                 <!-- Hier wird die "wtf.html" Datei von Bootstrap importiert und als "wtf" bezeichnet.-->
+
+{% block styles %}                                                                                                       <!-- Hier beginnt der Block für die Stylesheets.-->
+  {{ super() }}                                                                                                          <!-- Hier werden die Stylesheets der "base.html" von Bootstrap geladen.-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">                         <!-- Hier wird ein Stylesheet von Google Fonts geladen.-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">                             <!-- Hier wird ein weiteres Stylesheet von Google Fonts geladen.-->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">                                      <!-- Hier wird ein Stylesheet aus dem statischen Ordner geladen.-->
+{% endblock %}                                                                                                           <!-- Hier endet der Block für die Stylesheets.-->
+
+{% block title %}Select Movie{% endblock %}                                                                              <!-- Hier wird der Titel der Seite als "Select Movie" festgelegt.-->
+
+{% block content %}                                                                                                      <!-- Hier beginnt der Hauptinhalt der Seite.-->
+<div class="container">                                                                                                  <!-- Hier wird ein div-Element mit der Klasse "container" erstellt.-->
+    <h1 class="heading">Select Movie</h1>                                                                                <!-- Hier wird ein Überschrift-Element erstellt, welches den Text "Select Movie" enthält und die Klasse "heading" hat.-->
+    {% for movie in options: %}                                                                                          <!-- Hier beginnt eine Schleife, welche durch alle Elemente der Liste "options" iteriert. Für jedes Element wird der darauf folgende Code ausgeführt.-->
+  <p>
+    <a href="{{ url_for('find_movie', id=movie.id) }} ">{{ movie.title }} - {{movie.release_date}}</a>                   <!-- Hier wird ein Link-Element erstellt, welches auf die "find_movie" Route verweist und die ID des aktuellen Film-Elements als Argument übergibt. Der Text des Links besteht aus dem Titel des Films und dem Veröffentlichungsdatum.-->
+  </p>                                                                                                                   <!-- -->
+  {% endfor %}                                                                                                           <!-- Hier endet die Schleife.-->
+
+</div>                                                                                                                   <!-- Hier endet das div-Element mit der Klasse "container".-->
+{% endblock %}                                                                                                           <!-- Hier endet der Hauptinhalt der Seite.-->
